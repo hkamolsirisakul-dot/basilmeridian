@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basil Meridian — Thai food, minus the friction</title>
+<meta name="description" content="Basil Meridian sources differentiated Thai packaged food and delivers it to importers and distributors worldwide. Asset-light, compliance-ready, low minimums.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F7F0E1; --paper:#FCF8EE; --ink:#17130E; --muted:#6C6757;
+  --line:#E5DCC9; --flame:#EA3A1C; --flame-d:#C42E10; --gold:#F2B12C;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+a{color:inherit;text-decoration:none}
+.disp{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:800;letter-spacing:-0.025em;line-height:0.98}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--flame)}
+.muted{color:var(--muted)}
+.mark{background:var(--flame);color:#fff;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone;border-radius:3px}
+
+/* nav */
+header{position:sticky;top:0;z-index:60;background:rgba(247,240,225,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.02em}
+.brand svg{width:26px;height:26px}
+.navlinks{display:flex;gap:32px;align-items:center}
+.navlinks a{font-size:14px;color:var(--ink);font-weight:500;opacity:.72}
+.navlinks a:hover{opacity:1}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--flame);color:#fff;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:700;transition:transform .12s,background .15s;border:none;cursor:pointer}
+.btn:hover{background:var(--flame-d);transform:translateY(-1px)}
+.btn.ink{background:var(--ink)}.btn.ink:hover{background:#000}
+.btn.cream{background:var(--cream);color:var(--ink)}.btn.cream:hover{background:#fff}
+.navlinks a.cta{opacity:1}
+.menu{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+
+/* hero */
+.hero{padding:92px 0 78px;position:relative;overflow:hidden}
+.hero .eyebrow{display:block;margin-bottom:26px}
+.hero h1{font-size:104px;max-width:13ch}
+.hero .sub{font-size:21px;color:var(--muted);max-width:600px;margin:32px 0 38px;line-height:1.45}
+.hero .actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.link-arrow{font-size:15px;font-weight:600;border-bottom:2px solid var(--ink);padding-bottom:3px}
+.link-arrow:hover{color:var(--flame);border-color:var(--flame)}
+.spice{position:absolute;right:-60px;top:40px;font-size:340px;line-height:1;opacity:.06;transform:rotate(-8deg);pointer-events:none}
+
+/* marquee (dark) */
+.marquee{background:var(--ink);overflow:hidden}
+.marquee .track{display:flex;white-space:nowrap;animation:scroll 32s linear infinite;padding:16px 0}
+.marquee span{font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:700;color:var(--cream);padding:0 26px;display:inline-flex;align-items:center;gap:26px;text-transform:uppercase;letter-spacing:0.01em}
+.marquee span:after{content:"\25C6";color:var(--flame);font-size:13px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:92px 0}
+.row{display:grid;grid-template-columns:230px 1fr;gap:46px}
+.label{font-size:13px;font-weight:700;letter-spacing:0.03em}
+.label .num{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:30px;color:var(--flame);margin-bottom:6px;font-weight:800}
+h2{font-size:50px;max-width:17ch;margin-bottom:10px}
+.section-lead{font-size:19px;color:var(--muted);max-width:620px;margin-top:18px;line-height:1.5}
+
+/* dark band */
+.band-dark{background:var(--ink);color:var(--cream)}
+.band-dark .label,.band-dark h2{color:var(--cream)}
+.band-dark .section-lead{color:rgba(247,240,225,0.66)}
+.band-dark .num{color:var(--flame)}
+
+/* flame statement strip */
+.strip{background:var(--flame);color:#fff;padding:64px 0}
+.strip h2{font-size:58px;max-width:20ch;color:#fff;margin:0}
+.strip .sub{color:rgba(255,255,255,0.9);font-size:18px;margin-top:14px;max-width:60ch}
+
+/* do list */
+.do{display:grid;grid-template-columns:44px 1fr;gap:18px;padding:26px 0;border-bottom:1px solid var(--line)}
+.do:last-child{border:none}
+.do .k{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--flame)}
+.do h3{font-size:22px;font-weight:700;margin-bottom:5px;letter-spacing:-0.01em}
+.do p{font-size:15.5px;color:var(--muted);max-width:62ch}
+
+/* value */
+.value{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.value .col{padding:32px;border-radius:16px;border:2px solid var(--ink)}
+.value .col.a{background:var(--paper)}
+.value .col.b{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.value h3{font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:800;margin-bottom:8px}
+.value .col.a h3{color:var(--flame)}.value .col.b h3{color:var(--gold)}
+.value p{font-size:14.5px;margin-bottom:14px}.value .col.a p{color:var(--muted)}.value .col.b p{color:rgba(247,240,225,0.7)}
+.value li{list-style:none;font-size:14.5px;padding:8px 0 8px 24px;position:relative}
+.value .col.a li{border-top:1px solid var(--line)}.value .col.b li{border-top:1px solid rgba(247,240,225,0.16)}
+.value li:before{content:"";position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:2px;background:var(--flame)}
+.value .col.b li:before{background:var(--gold)}
+
+/* products */
+.prods{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:14px}
+.prod{padding:28px 28px 28px 0;border-top:1px solid var(--line)}
+.prod:nth-child(even){padding-left:36px;border-left:1px solid var(--line)}
+.prod .pn{font-family:'Bricolage Grotesque',sans-serif;font-size:25px;font-weight:700;margin-bottom:6px}
+.prod p{font-size:15px;color:var(--muted)}
+.tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:9px}
+.tag{font-size:13px;font-weight:600;color:#fff;background:var(--ink);border-radius:100px;padding:7px 15px}
+.tag.o{background:var(--flame)}
+.attrs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 30px;margin-top:32px;max-width:780px}
+.attr{display:flex;gap:12px;align-items:flex-start}
+.attr .ck{width:24px;height:24px;border-radius:50%;background:var(--flame);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.attr b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-0.01em}
+.attr span{font-size:13.5px;color:var(--muted);line-height:1.4}
+
+/* steps (on dark) */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:14px}
+.stp .sn{font-family:'Bricolage Grotesque',sans-serif;font-size:46px;font-weight:800;color:var(--flame);line-height:1;margin-bottom:12px}
+.stp h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.stp p{font-size:14.5px;color:rgba(247,240,225,0.66)}
+
+/* markets */
+.mkt{display:flex;justify-content:space-between;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line)}
+.mkt .mn{font-family:'Bricolage Grotesque',sans-serif;font-size:34px;font-weight:700}
+.mkt:hover .mn{color:var(--flame)}
+.mkt .md{font-size:15px;color:var(--muted)}
+.mkt.soon .mn{color:var(--muted)}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.w{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px}
+.w .wn{width:30px;height:30px;border-radius:8px;background:var(--flame);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin-bottom:14px;font-family:'Bricolage Grotesque',sans-serif}
+.w h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.w p{font-size:14.5px;color:var(--muted)}
+
+/* about */
+.about{padding:96px 0}
+.about .eyebrow{color:var(--gold)}
+.about h2{font-size:46px;margin:18px 0 20px;max-width:20ch}
+.about p{color:rgba(247,240,225,0.74);font-size:17px;max-width:62ch;margin-bottom:16px}
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:38px;border-top:1px solid rgba(247,240,225,0.16);padding-top:32px}
+.who h4{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:700;color:var(--gold);margin-bottom:7px}
+.who p{font-size:14px;margin-bottom:0}
+
+/* contact */
+.contact{text-align:center;padding:120px 0}
+.contact h2{font-size:74px;margin:18px auto 0;max-width:15ch}
+.contact .section-lead{margin:26px auto 36px;text-align:center}
+.contact .actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.cinfo{margin-top:44px;font-size:14.5px;color:var(--muted)}
+.cinfo b{color:var(--ink);font-weight:700}
+
+footer{background:var(--ink);color:rgba(247,240,225,0.66);padding:40px 0;font-size:13.5px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot .brand{color:var(--cream)}
+
+.note{background:var(--ink);color:#EDE6D6;font-size:12.5px;padding:9px 16px;text-align:center}
+.note b{color:var(--flame)}
+
+@media(max-width:900px){
+  .navlinks{display:none}.menu{display:block}
+  .hero h1{font-size:56px}.hero{padding:60px 0 48px}.spice{display:none}
+  .row{grid-template-columns:1fr;gap:18px}
+  h2{font-size:36px}.strip h2{font-size:38px}.contact h2{font-size:44px}
+  .value,.prods,.why,.attrs{grid-template-columns:1fr}
+  .prod,.prod:nth-child(even){padding:24px 0;border-left:none}
+  .steps{grid-template-columns:1fr 1fr}.who{grid-template-columns:1fr}
+  section,.about{padding:60px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" stroke="#17130E" stroke-width="1.8"/>
+        <path d="M20 2c5 5 5 31 0 36M2 20h36" stroke="#17130E" stroke-width="1.3"/>
+        <path d="M20 12.5c3.8 1.6 5.6 4.6 5.6 8.3 0 0-4.6.2-6.5-2.4C18.2 16.4 20 12.5 20 12.5z" fill="#EA3A1C"/>
+      </svg>
+      Basil Meridian
+    </a>
+    <nav class="navlinks">
+      <a href="#what">Approach</a>
+      <a href="#products">Products</a>
+      <a href="#markets">Markets</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="cta"><span class="btn" style="padding:10px 18px">Contact</span></a>
+    </nav>
+    <button class="menu">&#9776;</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="spice">&#127798;</div>
+  <div class="wrap">
+    <span class="eyebrow">Cross-border Thai packaged food</span>
+    <h1 class="disp">Thai food,<br><span class="mark">minus the friction.</span></h1>
+    <p class="sub">We source differentiated Thai products, handle the compliance, and supply you in small, flexible quantities, so you can put authentic Thai flavours on your shelves, reliably and without the usual barriers.</p>
+    <div class="actions">
+      <a href="#contact" class="btn">Request the catalogue</a>
+      <a href="#what" class="link-arrow">See how it works &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="track">
+    <span>Curry pastes</span><span>Coconut</span><span>Seaweed snacks</span><span>Fish sauce</span><span>Functional drinks</span><span>Dried fruit</span><span>Ready-to-eat</span><span>Sriracha</span>
+    <span>Curry pastes</span><span>Coconut</span><span>Seaweed snacks</span><span>Fish sauce</span><span>Functional drinks</span><span>Dried fruit</span><span>Ready-to-eat</span><span>Sriracha</span>
+  </div>
+</div>
+
+<!-- APPROACH -->
+<section id="what">
+  <div class="wrap row">
+    <div class="label"><span class="num">01</span>Approach</div>
+    <div>
+      <h2 class="disp">A faster, lighter way to source from Thailand</h2>
+      <p class="section-lead">We work demand-first: we understand what your shelves need, then source and ship to order. You get a curated range at small minimums, dependable lead times, and no dead stock sitting in your warehouse.</p>
+      <div style="margin-top:18px">
+        <div class="do"><div class="k">A</div><div><h3>We source</h3><p>Differentiated, uniquely-Thai packaged food: curry pastes and sauces, coconut and snacks, ready-to-eat and beverages, and better-for-you lines.</p></div></div>
+        <div class="do"><div class="k">B</div><div><h3>We make it compliant</h3><p>Labelling, certificates, and customs paperwork prepared for your destination market, so shipments clear cleanly and arrive shelf-ready.</p></div></div>
+        <div class="do"><div class="k">C</div><div><h3>We deliver</h3><p>Consolidated, mixed-product shipments at low minimums, coordinated end to end, so you can trial and reorder with confidence.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section id="value" style="padding-top:0">
+  <div class="wrap row">
+    <div class="label"><span class="num">02</span>Both sides</div>
+    <div>
+      <h2 class="disp">Built for the people on both ends of the trade</h2>
+      <div class="value">
+        <div class="col a">
+          <h3>For importers</h3>
+          <p>De-risked, verified, consistent Thai supply, with no large-minimum barrier.</p>
+          <ul>
+            <li>Curated, differentiated products, not commodity boxes</li>
+            <li>Low minimums and mixed pallets to trial new lines</li>
+            <li>Compliance and labelling handled for your market</li>
+            <li>Reliable logistics and verified, consistent quality</li>
+          </ul>
+        </div>
+        <div class="col b">
+          <h3>For Thai producers</h3>
+          <p>A route to global buyers without building export infrastructure yourself.</p>
+          <ul>
+            <li>Access to verified international buyers</li>
+            <li>Export compliance and documentation support</li>
+            <li>Logistics coordination you could not arrange alone</li>
+            <li>A partner who represents your brand with care</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" style="padding-top:0">
+  <div class="wrap row">
+    <div class="label"><span class="num">03</span>Products</div>
+    <div>
+      <h2 class="disp">A curated range of genuinely Thai products</h2>
+      <p class="section-lead">We focus on products that are hard to find anywhere else, and keep staples on hand to round out a container.</p>
+      <div class="prods">
+        <div class="prod"><div class="pn">Sauces &amp; curry pastes</div><p>Curry pastes, fish sauce, sweet chilli, tamarind, stir-fry and finishing sauces.</p></div>
+        <div class="prod"><div class="pn">Snacks &amp; coconut</div><p>Roasted seaweed, dried tropical fruit, coconut milk, cream, water and oil.</p></div>
+        <div class="prod"><div class="pn">Canned, instant &amp; drinks</div><p>Ready-to-eat curries, instant noodles, canned products and Thai beverages.</p></div>
+        <div class="prod"><div class="pn">Healthy &amp; functional</div><p>Plant-based, free-from, coconut wellness, and functional and herbal drinks.</p></div>
+      </div>
+      <div class="attrs">
+        <div class="attr"><span class="ck">&#10003;</span><div><b>Uniquely Thai</b><span>Differentiated products that are hard to source from any other origin.</span></div></div>
+        <div class="attr"><span class="ck">&#10003;</span><div><b>Better-for-you</b><span>Plant-based, free-from, coconut wellness and functional lines.</span></div></div>
+        <div class="attr"><span class="ck">&#10003;</span><div><b>Retail &amp; foodservice formats</b><span>Pack sizes for supermarket shelves and for professional kitchens.</span></div></div>
+        <div class="attr"><span class="ck">&#10003;</span><div><b>Private-label on request</b><span>Own-brand sourcing available on selected categories.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAME STRIP -->
+<div class="strip">
+  <div class="wrap">
+    <h2 class="disp">Real Thai. Low minimums. Less friction.</h2>
+    <p class="sub">Trial new products in small, mixed quantities, with the compliance and logistics handled. That is the whole idea.</p>
+  </div>
+</div>
+
+<!-- HOW (dark) -->
+<section id="how" class="band-dark">
+  <div class="wrap row">
+    <div class="label"><span class="num">04</span>How we work</div>
+    <div>
+      <h2 class="disp">Simple, reliable, and built around you</h2>
+      <div class="steps">
+        <div class="stp"><div class="sn">1</div><h3>Understand your needs</h3><p>We learn what your market and shelves actually need.</p></div>
+        <div class="stp"><div class="sn">2</div><h3>Source &amp; quote</h3><p>We match it to vetted Thai suppliers and quote a clear landed price.</p></div>
+        <div class="stp"><div class="sn">3</div><h3>Comply &amp; consolidate</h3><p>We prepare the paperwork and labels and consolidate your order.</p></div>
+        <div class="stp"><div class="sn">4</div><h3>Deliver &amp; reorder</h3><p>We ship on time, support the sell-through, and make reordering effortless.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS -->
+<section id="markets">
+  <div class="wrap row">
+    <div class="label"><span class="num">05</span>Markets</div>
+    <div>
+      <h2 class="disp">Reliable supply, market by market</h2>
+      <p class="section-lead">We know the rules and routes for each market we serve, so your shipments arrive compliant, on time, and shelf-ready.</p>
+      <div style="margin-top:24px">
+        <div class="mkt"><div class="mn">Australia</div><div class="md">Duty-free under TAFTA, local labelling handled</div></div>
+        <div class="mkt"><div class="mn">Middle East</div><div class="md">UAE and the wider Gulf, halal and Arabic labelling handled</div></div>
+        <div class="mkt"><div class="mn">India</div><div class="md">FSSAI-ready, for premium and specialty channels</div></div>
+        <div class="mkt soon"><div class="mn">Island markets</div><div class="md">Maldives, Fiji, Mauritius &nbsp;&middot;&nbsp; ask us</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why" style="padding-top:0">
+  <div class="wrap row">
+    <div class="label"><span class="num">06</span>Why us</div>
+    <div>
+      <h2 class="disp">What you can count on</h2>
+      <div class="why">
+        <div class="w"><div class="wn">1</div><h3>Compliance-ready</h3><p>Every shipment arrives with the right paperwork and labels. Fewer holds, fewer surprises.</p></div>
+        <div class="w"><div class="wn">2</div><h3>Speed &amp; flexibility</h3><p>Asset-light and demand-first, so we move fast and offer minimums incumbents cannot.</p></div>
+        <div class="w"><div class="wn">3</div><h3>Curated &amp; different</h3><p>The genuinely Thai products that set your range apart from the usual commodities.</p></div>
+        <div class="w"><div class="wn">4</div><h3>Reliable logistics</h3><p>Coordinated end to end, with clear lead times and backup options.</p></div>
+        <div class="w"><div class="wn">5</div><h3>Consistent quality</h3><p>Pre-vetted suppliers and pre-shipment checks, specs confirmed before goods move.</p></div>
+        <div class="w"><div class="wn">6</div><h3>Responsive &amp; available</h3><p>We answer quickly, keep you posted at every stage, and do what we say. Easy to work with.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT (dark) -->
+<section id="about" class="about band-dark">
+  <div class="wrap">
+    <span class="eyebrow">About</span>
+    <h2 class="disp">A focused partner, not a faceless trader</h2>
+    <p>Basil Meridian exists to fix the messy middle between Thailand's food producers and the buyers who want their products. We pair real trading experience with hands-on operations, and use technology to run a lean, reliable backend, so a small, dedicated team can deliver the service of a much larger one.</p>
+    <p>We are starting deliberately focused: a curated range, a few markets, and relationships we intend to keep for years.</p>
+    <div class="who">
+      <div><h4>Trading &amp; strategy</h4><p>A background in markets, and a discipline for sourcing, pricing, and risk.</p></div>
+      <div><h4>Operations &amp; relationships</h4><p>The day-to-day of deals, accounts, and keeping partners happy.</p></div>
+      <div><h4>Based in Thailand</h4><p>Sourcing at origin, serving buyers abroad.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h2 class="disp">Let's put Thai food <span class="mark">on your shelves.</span></h2>
+    <p class="section-lead">Tell us your market and the categories you are after, and we will send our current range and indicative pricing.</p>
+    <div class="actions">
+      <a href="mailto:hello@basilmeridian.com?subject=Basil%20Meridian%20enquiry" class="btn">Email us</a>
+      <a href="mailto:hello@basilmeridian.com?subject=Request%20catalogue" class="btn ink">Request the catalogue</a>
+    </div>
+    <div class="cinfo"><b>Email</b> hello@basilmeridian.com &nbsp;&middot;&nbsp; <b>Based in</b> Bangkok, Thailand &nbsp;&middot;&nbsp; <b>Web</b> basilmeridian.com</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="brand">Basil Meridian</div>
+    <div>Cross-border Thai packaged-food trading</div>
+    <div>&copy; 2026 Basil Meridian</div>
+  </div>
+</footer>
+
+</body>
+</html>
