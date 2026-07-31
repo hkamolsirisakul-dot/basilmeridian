@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basil Meridian — A future-proof agentic platform architecture</title>
+<meta name="description" content="How an asset-light sourcing and supply firm runs on a composable, vendor-neutral agentic platform — a reference architecture built on the Agentic AI Mesh: five design principles, a layered system, a platform operating model, and governed autonomy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F7F0E1; --paper:#FCF8EE; --ink:#17130E; --muted:#6C6757;
+  --line:#E5DCC9; --flame:#EA3A1C; --flame-d:#C42E10; --gold:#F2B12C;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+a{color:inherit;text-decoration:none}
+.disp{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:800;letter-spacing:-0.025em;line-height:0.98}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--flame)}
+.muted{color:var(--muted)}
+.mark{background:var(--flame);color:#fff;padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone;border-radius:3px}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* nav */
+header{position:sticky;top:0;z-index:60;background:rgba(247,240,225,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:19px;letter-spacing:-0.02em}
+.brand svg{width:26px;height:26px}
+.navlinks{display:flex;gap:32px;align-items:center}
+.navlinks a{font-size:14px;color:var(--ink);font-weight:500;opacity:.72}
+.navlinks a:hover{opacity:1}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--flame);color:#fff;padding:13px 22px;border-radius:8px;font-size:14.5px;font-weight:700;transition:transform .12s,background .15s;border:none;cursor:pointer}
+.btn:hover{background:var(--flame-d);transform:translateY(-1px)}
+.btn.ink{background:var(--ink)}.btn.ink:hover{background:#000}
+.navlinks a.cta{opacity:1}
+.menu{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+
+/* hero */
+.hero{padding:88px 0 70px;position:relative;overflow:hidden}
+.hero .eyebrow{display:block;margin-bottom:24px}
+.hero h1{font-size:82px;max-width:15ch}
+.hero .sub{font-size:20px;color:var(--muted);max-width:660px;margin:30px 0 36px;line-height:1.5}
+.hero .actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.link-arrow{font-size:15px;font-weight:600;border-bottom:2px solid var(--ink);padding-bottom:3px}
+.link-arrow:hover{color:var(--flame);border-color:var(--flame)}
+.spice{position:absolute;right:-40px;top:30px;font-size:300px;line-height:1;opacity:.05;transform:rotate(-8deg);pointer-events:none}
+
+/* marquee */
+.marquee{background:var(--ink);overflow:hidden}
+.marquee .track{display:flex;white-space:nowrap;animation:scroll 34s linear infinite;padding:15px 0}
+.marquee span{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--cream);padding:0 24px;display:inline-flex;align-items:center;gap:24px;letter-spacing:0.02em}
+.marquee span:after{content:"\25C6";color:var(--flame);font-size:11px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:88px 0}
+.row{display:grid;grid-template-columns:230px 1fr;gap:46px}
+.label{font-size:13px;font-weight:700;letter-spacing:0.03em}
+.label .num{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:30px;color:var(--flame);margin-bottom:6px;font-weight:800}
+h2{font-size:48px;max-width:18ch;margin-bottom:10px}
+.section-lead{font-size:19px;color:var(--muted);max-width:640px;margin-top:18px;line-height:1.5}
+
+/* dark band */
+.band-dark{background:var(--ink);color:var(--cream)}
+.band-dark .label,.band-dark h2{color:var(--cream)}
+.band-dark .section-lead{color:rgba(247,240,225,0.66)}
+.band-dark .num{color:var(--flame)}
+
+/* principles */
+.principles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px}
+.pr{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+.pr .pi{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--flame);letter-spacing:0.04em}
+.pr h3{font-size:18px;font-weight:700;margin:12px 0 8px;letter-spacing:-0.01em}
+.pr p{font-size:14px;color:var(--muted);line-height:1.45}
+
+/* architecture diagram */
+.arch{margin-top:20px;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--paper)}
+.arch-head{background:var(--ink);color:var(--cream);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.arch-head .t{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px}
+.arch-head .s{font-size:12.5px;color:rgba(247,240,225,0.6);font-family:'JetBrains Mono',monospace}
+.arch-body{padding:22px}
+.layer{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center;padding:14px 0;border-bottom:1px dashed var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .lname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px}
+.layer .lname span{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--muted);margin-top:3px;letter-spacing:0.02em}
+.nodes{display:flex;flex-wrap:wrap;gap:8px}
+.node{font-size:13px;font-weight:600;background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink)}
+.node.hot{background:var(--flame);color:#fff;border-color:var(--flame)}
+.node.gold{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.node.ink{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.arch-cross{display:flex;gap:10px;flex-wrap:wrap;padding:16px 22px;background:var(--ink);color:var(--cream);align-items:center}
+.arch-cross .cl{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-right:6px}
+.arch-cross .cx{font-size:12.5px;font-family:'JetBrains Mono',monospace;background:rgba(247,240,225,0.08);border:1px solid rgba(247,240,225,0.16);border-radius:6px;padding:6px 10px}
+
+/* two structural layers */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.two .col{padding:30px;border-radius:16px;border:2px solid var(--ink)}
+.two .col.a{background:var(--paper)}
+.two .col.b{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.two h3{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;margin-bottom:6px}
+.two .col.a h3{color:var(--flame)}.two .col.b h3{color:var(--gold)}
+.two .tag2{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:14px;display:block}
+.two .col.b .tag2{color:rgba(247,240,225,0.55)}
+.two li{list-style:none;font-size:14.5px;padding:9px 0 9px 24px;position:relative}
+.two .col.a li{border-top:1px solid var(--line)}.two .col.b li{border-top:1px solid rgba(247,240,225,0.16)}
+.two li:before{content:"";position:absolute;left:0;top:16px;width:8px;height:8px;border-radius:2px;background:var(--flame)}
+.two .col.b li:before{background:var(--gold)}
+.two .col.b li{color:rgba(247,240,225,0.82)}
+
+/* governance grid */
+.gov{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.g{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px}
+.g .gn{width:30px;height:30px;border-radius:8px;background:var(--flame);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin-bottom:14px;font-family:'Bricolage Grotesque',sans-serif}
+.g h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.g p{font-size:14.5px;color:var(--muted)}
+
+/* applied use cases */
+.use{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:14px}
+.uc{padding:26px 28px 26px 0;border-top:1px solid var(--line)}
+.uc:nth-child(even){padding-left:36px;border-left:1px solid var(--line)}
+.uc .uk{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--flame);margin-bottom:8px}
+.uc .un{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.uc p{font-size:15px;color:var(--muted)}
+
+/* flame strip */
+.strip{background:var(--flame);color:#fff;padding:60px 0}
+.strip h2{font-size:52px;max-width:22ch;color:#fff;margin:0}
+.strip .sub{color:rgba(255,255,255,0.92);font-size:18px;margin-top:14px;max-width:64ch}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:16px}
+.rd .rn{font-family:'Bricolage Grotesque',sans-serif;font-size:44px;font-weight:800;color:var(--flame);line-height:1;margin-bottom:12px}
+.rd .rh{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(247,240,225,0.55);margin-bottom:6px}
+.rd h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.rd p{font-size:14.5px;color:rgba(247,240,225,0.66)}
+
+/* compostable callout */
+.compost{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.compost .cc{border:2px solid var(--ink);border-radius:16px;padding:28px;background:var(--paper)}
+.compost .cc .icn{font-size:34px;margin-bottom:10px}
+.compost .cc h3{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px}
+.compost .cc p{font-size:15px;color:var(--muted)}
+.compost .cc b{color:var(--flame)}
+
+footer{background:var(--ink);color:rgba(247,240,225,0.66);padding:40px 0;font-size:13.5px}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot .brand{color:var(--cream)}
+.srcs{border-top:1px solid rgba(247,240,225,0.14);margin-top:24px;padding-top:18px;font-size:12.5px;color:rgba(247,240,225,0.5);line-height:1.7}
+.srcs a{color:rgba(247,240,225,0.72);border-bottom:1px solid rgba(247,240,225,0.25)}
+
+@media(max-width:900px){
+  .navlinks{display:none}.menu{display:block}
+  .hero h1{font-size:46px}.hero{padding:56px 0 44px}.spice{display:none}
+  .row{grid-template-columns:1fr;gap:18px}
+  h2{font-size:34px}.strip h2{font-size:34px}
+  .principles,.two,.gov,.use,.road,.compost{grid-template-columns:1fr}
+  .uc,.uc:nth-child(even){padding:22px 0;border-left:none}
+  .layer{grid-template-columns:1fr;gap:10px}
+  .road{grid-template-columns:1fr 1fr}
+  section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" stroke="#17130E" stroke-width="1.8"/>
+        <path d="M20 2c5 5 5 31 0 36M2 20h36" stroke="#17130E" stroke-width="1.3"/>
+        <path d="M20 12.5c3.8 1.6 5.6 4.6 5.6 8.3 0 0-4.6.2-6.5-2.4C18.2 16.4 20 12.5 20 12.5z" fill="#EA3A1C"/>
+      </svg>
+      Basil Meridian <span style="font-weight:500;opacity:.55">International</span>
+    </a>
+    <nav class="navlinks">
+      <a href="#thesis">Thesis</a>
+      <a href="#principles">Principles</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#operating">Operating model</a>
+      <a href="#applied">Applied</a>
+      <a href="index.html" class="cta"><span class="btn" style="padding:10px 18px">Back to site</span></a>
+    </nav>
+    <button class="menu">&#9776;</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="spice">&#129302;</div>
+  <div class="wrap">
+    <span class="eyebrow">Reference architecture &middot; The lean backend behind Basil Meridian</span>
+    <h1 class="disp">A future-proof <span class="mark">agentic platform.</span></h1>
+    <p class="sub">Our whole model is asset-light: a small, dedicated team delivering the service of a much larger one. That only works if the backend does the heavy lifting. This is how we think about that backend — a composable, vendor-neutral <b>agentic mesh</b> that lets agents reason, collaborate, and act across our sourcing, compliance, and logistics work, securely and at scale, and built to keep evolving as the technology does.</p>
+    <div class="actions">
+      <a href="#architecture" class="btn">See the architecture</a>
+      <a href="#thesis" class="link-arrow">Why agentic, why now &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="track">
+    <span>Composability</span><span>Distributed intelligence</span><span>Layered decoupling</span><span>Vendor neutrality</span><span>Governed autonomy</span><span>Open standards</span><span>MCP</span><span>Observability</span>
+    <span>Composability</span><span>Distributed intelligence</span><span>Layered decoupling</span><span>Vendor neutrality</span><span>Governed autonomy</span><span>Open standards</span><span>MCP</span><span>Observability</span>
+  </div>
+</div>
+
+<!-- THESIS -->
+<section id="thesis">
+  <div class="wrap row">
+    <div class="label"><span class="num">01</span>The thesis</div>
+    <div>
+      <h2 class="disp">Point tools don't scale. A mesh does.</h2>
+      <p class="section-lead">The instinct with AI is to bolt a chatbot onto each task: one for quoting, one for documents, one for supplier chase-ups. It works for a demo and collapses in production — brittle integrations, no shared context, no way to govern what a dozen disconnected bots actually do.</p>
+      <p class="section-lead" style="margin-top:14px">A future-proof platform inverts that. Instead of point solutions, it provides a <b>connective and orchestration layer</b> — a mesh — where many agents (ours and off-the-shelf) share context, delegate tasks to one another, and act across every system we touch. The mesh, not any single model or vendor, is the durable asset. Models and tools underneath it are meant to be swapped as the field moves; the architecture is designed so that swap costs almost nothing.</p>
+      <div class="compost">
+        <div class="cc">
+          <div class="icn">&#129513;</div>
+          <h3>Composable</h3>
+          <p>Every capability — an agent, an evaluator, a connector, a model policy — is a reusable building block that snaps in and out <b>without reworking the system around it</b>. New need, new block; no rewrite.</p>
+        </div>
+        <div class="cc">
+          <div class="icn">&#127807;</div>
+          <h3>Compostable</h3>
+          <p>Just as important: any component can be <b>retired cleanly</b> when a better one appears. Nothing calcifies into lock-in. Yesterday's best model decomposes out; today's takes its place — same interfaces, no drama.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section id="principles" class="band-dark">
+  <div class="wrap row">
+    <div class="label"><span class="num">02</span>Design principles</div>
+    <div>
+      <h2 class="disp">Five principles that keep it future-proof</h2>
+      <p class="section-lead">These are mutually reinforcing. Drop one and the platform quietly becomes another pile of brittle integrations. Together they define the <b>agentic AI mesh</b>.</p>
+      <div class="principles">
+        <div class="pr"><div class="pi">01</div><h3>Composability</h3><p>Integrate any agent or tool without reworking the wider system. Capabilities plug in through shared interfaces.</p></div>
+        <div class="pr"><div class="pi">02</div><h3>Distributed intelligence</h3><p>Break a job into steps handled by a network of cooperating agents, rather than one monolith trying to do everything.</p></div>
+        <div class="pr"><div class="pi">03</div><h3>Layered decoupling</h3><p>Keep logic, memory, and orchestration in separate layers so each can change independently.</p></div>
+        <div class="pr"><div class="pi">04</div><h3>Vendor neutrality</h3><p>Update or replace any component through open standards — no dependence on a single provider's roadmap.</p></div>
+        <div class="pr"><div class="pi">05</div><h3>Governed autonomy</h3><p>Embed policy, guardrails, and audit directly in the mesh so agents act freely but safely and transparently.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="wrap row">
+    <div class="label"><span class="num">03</span>The layers</div>
+    <div>
+      <h2 class="disp">A composable, layered architecture</h2>
+      <p class="section-lead">Read it top to bottom: people and channels at the top, the physical and data reality of the business at the bottom, and the mesh in the middle wiring agents to models, tools, and memory. Governance runs across all of it — never bolted on after.</p>
+
+      <div class="arch">
+        <div class="arch-head">
+          <div class="t">Agentic AI Mesh &mdash; layer stack</div>
+          <div class="s">decoupled &middot; each layer swappable</div>
+        </div>
+        <div class="arch-body">
+          <div class="layer">
+            <div class="lname">Experience<span>how work enters</span></div>
+            <div class="nodes">
+              <span class="node">Buyer &amp; supplier chat</span>
+              <span class="node">Internal console</span>
+              <span class="node">Email / LINE / WhatsApp</span>
+              <span class="node hot">Visual workflow builder</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="lname">Orchestration<span>the mesh itself</span></div>
+            <div class="nodes">
+              <span class="node ink">Task decomposition</span>
+              <span class="node ink">Agent-to-agent delegation</span>
+              <span class="node ink">Shared context / state</span>
+              <span class="node ink">Routing &amp; planning</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="lname">Agents<span>custom + off-the-shelf</span></div>
+            <div class="nodes">
+              <span class="node">Sourcing agent</span>
+              <span class="node">Compliance agent</span>
+              <span class="node">Logistics agent</span>
+              <span class="node">Pricing agent</span>
+              <span class="node">3rd-party agents</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="lname">Tools &amp; capabilities<span>how agents act</span></div>
+            <div class="nodes">
+              <span class="node gold">MCP servers</span>
+              <span class="node">Supplier &amp; ERP APIs</span>
+              <span class="node">Docs &amp; label generation</span>
+              <span class="node">Customs / tariff lookups</span>
+              <span class="node">Freight &amp; tracking</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="lname">Memory &amp; context<span>what agents know</span></div>
+            <div class="nodes">
+              <span class="node">Short-term working memory</span>
+              <span class="node">Long-term knowledge store</span>
+              <span class="node">Vector / retrieval index</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="lname">Model &amp; policy<span>interchangeable</span></div>
+            <div class="nodes">
+              <span class="node">Frontier LLMs</span>
+              <span class="node">Small / local models</span>
+              <span class="node hot">Model routing policy</span>
+              <span class="node">Evaluators</span>
+            </div>
+          </div>
+          <div class="layer">
+            <div class="lname">Data &amp; systems<span>source of truth</span></div>
+            <div class="nodes">
+              <span class="node">Product &amp; supplier master</span>
+              <span class="node">Orders &amp; shipments</span>
+              <span class="node">Compliance records</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-cross">
+          <span class="cl">Across every layer</span>
+          <span class="cx">Identity &amp; access</span>
+          <span class="cx">Guardrails &amp; policy</span>
+          <span class="cx">Observability / tracing</span>
+          <span class="cx">Evaluation</span>
+          <span class="cx">Audit trail</span>
+          <span class="cx">Cost controls</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATING MODEL -->
+<section id="operating" style="padding-top:0">
+  <div class="wrap row">
+    <div class="label"><span class="num">04</span>Operating model</div>
+    <div>
+      <h2 class="disp">Two structural layers, working together</h2>
+      <p class="section-lead">Scale needs more than good architecture — it needs a way of working. A <b>platform team</b> builds and maintains reusable components; an <b>operations side</b> composes them into real workflows. Standard interfaces connect the two, so quality and control never become bottlenecks.</p>
+      <div class="two">
+        <div class="col a">
+          <h3>Platform side</h3>
+          <span class="tag2">builds &amp; maintains reusable components</span>
+          <ul>
+            <li>Curates agents, evaluators, and model policies as versioned building blocks</li>
+            <li>Owns the shared interfaces, standardised nodes, and MCP contracts</li>
+            <li>Sets guardrails, observability, and the evaluation harness once, for everyone</li>
+            <li>Keeps the mesh vendor-neutral so models and tools stay swappable</li>
+          </ul>
+        </div>
+        <div class="col b">
+          <h3>Operations side</h3>
+          <span class="tag2">composes components into workflows</span>
+          <ul>
+            <li>Assembles workflows in visual tools — n8n, Power Automate, agent builders</li>
+            <li>Consumes platform components through APIs and standardised nodes</li>
+            <li>Moves fast on new sourcing, compliance, and logistics flows without waiting on engineering</li>
+            <li>Inherits quality, observability, and control by construction — not by policing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="governance" class="band-dark" style="padding-top:0">
+  <div class="wrap row">
+    <div class="label"><span class="num">05</span>Governed autonomy</div>
+    <div>
+      <h2 class="disp">Autonomy you can actually trust</h2>
+      <p class="section-lead">Agents that touch customs paperwork, prices, and shipments cannot be a black box. Governance is a first-class layer of the mesh — the thing that makes autonomy safe enough to expand.</p>
+      <div class="gov">
+        <div class="g"><div class="gn">1</div><h3>Identity &amp; least privilege</h3><p>Every agent has an identity and only the access its task requires. Nothing acts on our behalf anonymously.</p></div>
+        <div class="g"><div class="gn">2</div><h3>Guardrails &amp; approvals</h3><p>Policies constrain what agents may do; high-stakes actions — a price commit, a customs filing — route to a human check.</p></div>
+        <div class="g"><div class="gn">3</div><h3>Observability &amp; tracing</h3><p>Every step an agent takes is traced end to end, so behaviour is explainable and debuggable, not guessed at.</p></div>
+        <div class="g"><div class="gn">4</div><h3>Continuous evaluation</h3><p>Agents are scored against known-good outcomes before and after they ship, so quality is measured, not assumed.</p></div>
+        <div class="g"><div class="gn">5</div><h3>Audit &amp; reproducibility</h3><p>A durable record of who did what, with which inputs — the same discipline our compliance work already lives by.</p></div>
+        <div class="g"><div class="gn">6</div><h3>Cost &amp; rate control</h3><p>Budgets and limits per workflow keep autonomous work economical as it scales across the business.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLIED -->
+<section id="applied">
+  <div class="wrap row">
+    <div class="label"><span class="num">06</span>Applied</div>
+    <div>
+      <h2 class="disp">What the mesh does for a sourcing &amp; supply firm</h2>
+      <p class="section-lead">These are the workflows that let a small team behave like a large one. Each is a set of cooperating agents drawing on shared tools and context — not a standalone bot.</p>
+      <div class="use">
+        <div class="uc"><div class="uk">sourcing + pricing</div><div class="un">Demand-first sourcing</div><p>Agents translate a buyer's brief into a shortlist of vetted Thai suppliers, pull specs, and assemble an indicative landed price — with a human confirming the quote.</p></div>
+        <div class="uc"><div class="uk">compliance</div><div class="un">Market-ready documentation</div><p>A compliance agent drafts labels, certificates, and customs paperwork for the destination market, checked against current rules before anything ships.</p></div>
+        <div class="uc"><div class="uk">logistics</div><div class="un">Consolidation &amp; tracking</div><p>Logistics agents plan mixed-pallet consolidation, book freight, and keep buyers posted at every stage without anyone chasing a spreadsheet.</p></div>
+        <div class="uc"><div class="uk">accounts</div><div class="un">Reorder &amp; sell-through support</div><p>Agents watch sell-through signals, surface reorder moments, and prep the next order so buying again is effortless.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAME STRIP -->
+<div class="strip">
+  <div class="wrap">
+    <h2 class="disp">Build the mesh. Rent the models.</h2>
+    <p class="sub">The durable investment is the architecture and the governance around it. The models, tools, and vendors underneath are meant to be swapped — and a future-proof platform makes that swap cheap by design.</p>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="band-dark">
+  <div class="wrap row">
+    <div class="label"><span class="num">07</span>Roadmap</div>
+    <div>
+      <h2 class="disp">How you get there without a big-bang rebuild</h2>
+      <p class="section-lead">Future-proof does not mean build everything now. It means each step is composable, so nothing you build has to be thrown away when the next capability arrives.</p>
+      <div class="road">
+        <div class="rd"><div class="rn">1</div><div class="rh">foundation</div><h3>Standards first</h3><p>Adopt open interfaces (MCP), identity, and tracing before adding agents. The plumbing is the platform.</p></div>
+        <div class="rd"><div class="rn">2</div><div class="rh">first agents</div><h3>One workflow, end to end</h3><p>Ship a single high-value flow — say, documentation — with governance on from day one.</p></div>
+        <div class="rd"><div class="rn">3</div><div class="rh">the mesh</div><h3>Let agents collaborate</h3><p>Add orchestration so agents delegate and share context, and let ops compose new flows in visual tools.</p></div>
+        <div class="rd"><div class="rn">4</div><div class="rh">scale</div><h3>Compose, measure, swap</h3><p>Grow the component library, evaluate continuously, and retire components cleanly as better ones appear.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="brand">Basil Meridian <span style="font-weight:500;opacity:.6">International</span></div>
+      <div>The lean, agentic backend behind our asset-light model</div>
+      <div><a href="index.html" style="color:var(--cream)">&larr; Back to main site</a></div>
+    </div>
+    <div class="srcs">
+      Reference architecture adapted for Basil Meridian from QuantumBlack (AI by McKinsey) &mdash; the &ldquo;Agentic AI Mesh&rdquo;: composable, distributed, vendor-agnostic architecture for running agents at scale in the enterprise. Further reading:
+      <a href="https://medium.com/quantumblack/creating-a-future-proof-enterprise-agentic-platform-architecture-c21fc48406a5">Creating a future-proof enterprise agentic platform architecture</a>,
+      <a href="https://medium.com/quantumblack/how-we-enabled-agents-at-scale-in-the-enterprise-with-the-agentic-ai-mesh-baf4290daf48">How we enabled agents at scale with the Agentic AI Mesh</a>,
+      and McKinsey&rsquo;s <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/seizing-the-agentic-ai-advantage">Seizing the agentic AI advantage</a>.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
